@@ -1,0 +1,38 @@
+# exclude target directories
+target
+**/target/
+*/target
+
+ee/src/main/webapp/WEB-INF/classes/
+ee/src/main/webapp/WEB-INF/lib/
+ee/src/main/webapp/META-INF/
+ee/src/main/webapp/ee/
+
+spark/src/main/webapp/WEB-INF/classes/
+spark/src/main/webapp/WEB-INF/lib/
+spark/src/main/webapp/META-INF/
+spark/src/main/webapp/spark/
+
+
+# eclipse project files and directories
+.classpath
+.project
+.settings
+.recommenders
+.metadata
+
+# exclude IntelliJ IDEA files
+.idea
+**/*.iml
+
+# exclude .svn directories
+.svn
+**/.svn/
+
+# other Folders
+test-output
+
+License.properties
+**/derby.log
+
+**/MANIFEST.MF
