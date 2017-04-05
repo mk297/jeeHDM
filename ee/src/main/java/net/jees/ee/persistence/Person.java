@@ -1,9 +1,12 @@
 package net.jees.ee.persistence;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,6 +22,17 @@ public class Person {
 
 	private String preName;
 	private String surName;
+
+	@OneToMany
+	private List<Ticket> tickets;
+
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
+	}
 
 	public int getId() {
 		return id;
