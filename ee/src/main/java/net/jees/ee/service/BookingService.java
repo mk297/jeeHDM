@@ -1,15 +1,21 @@
 package net.jees.ee.service;
 
-import java.util.List;
-
+import java.util.Collection;
 import javax.enterprise.context.ApplicationScoped;
-import net.jees.ee.persistence.Ticket;
+import javax.inject.Inject;
+
+import net.jees.ee.persistence.PersistenceManager;
+import net.jees.ee.persistence.entities.Person;
+import net.jees.ee.persistence.entities.Ticket;
+import net.jees.ee.persistence.entities.pk.TicketId;
 
 @ApplicationScoped
 public class BookingService {
+	@Inject
+	private PersistenceManager persistenceManager;
 
 	/**
-	 * Book a seat for a given person.
+	 * Reservate a seat for a given person.
 	 * 
 	 * @param seat
 	 *            The seat number.
@@ -20,7 +26,16 @@ public class BookingService {
 	 * @return <code>true</code> if the seat was booked successfully, or
 	 *         <code>false</code> if the seat was already taken.
 	 */
-	public boolean bookSeat(int seat, int row, int personID) {
+	public boolean reservateSeat(int seat, int row, int personID) {
+		final Person person = persistenceManager.loadObject(Person.class, personID);
+
+		final Ticket ticket = new Ticket(row, seat);
+		
+		if (persistenceManager.persistObject(ticket)) {
+			person.getTickets().add(ticket);
+			return true;
+		}
+		
 		return false;
 	}
 
@@ -28,8 +43,11 @@ public class BookingService {
 	 *
 	 * @return All reservations.
 	 */
-	public List<Ticket> getReservations() {
-		
-		return null;
+	public Collection<Ticket> getReservations() {
+		return persistenceManager.loadAll(Ticket.class);
+	}
+
+	public boolean isSeatReserved(int row, int seat) {
+		return null != persistenceManager.loadObject(Ticket.class, new TicketId(row, seat));
 	}
 }

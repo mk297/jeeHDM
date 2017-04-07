@@ -1,12 +1,13 @@
 package net.jees.ee.json;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 
-import net.jees.ee.persistence.Ticket;
+import net.jees.ee.persistence.entities.Ticket;
 
 public class JsonHelper {
 	/**
@@ -24,7 +25,7 @@ public class JsonHelper {
 	 *            The list of all reservations.
 	 * @return The JSON form of the reservations.
 	 */
-	public static String jsonfyReservations(List<Ticket> reservedTickets) {
+	public static String jsonfyReservations(Collection<Ticket> reservedTickets) {
 		final JsonObjectBuilder jsonContainerBuilder = Json.createObjectBuilder();
 		final JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
 

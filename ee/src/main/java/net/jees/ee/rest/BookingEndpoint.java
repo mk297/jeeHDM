@@ -20,7 +20,7 @@ public class BookingEndpoint {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String bookSeat(@QueryParam(value = "seat") int seat, @QueryParam(value = "row") int row,
 			@QueryParam(value = "personID") int personID) {
-		return JsonHelper.jsonfySuccessAnswer(bookingService.bookSeat(seat, row, personID));
+		return JsonHelper.jsonfySuccessAnswer(bookingService.reservateSeat(seat, row, personID));
 	}
 
 	@GET
