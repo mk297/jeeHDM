@@ -1,8 +1,6 @@
 package net.jees.ee.json;
 
 import java.util.Collection;
-import java.util.List;
-
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;

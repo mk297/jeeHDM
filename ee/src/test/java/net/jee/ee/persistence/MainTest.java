@@ -19,7 +19,7 @@ public class MainTest {
 		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		EntityManager em = factory.createEntityManager();
 		
-		Query q = em.createQuery("Select s from Ticket s");
+		Query q = em.createNativeQuery("Select s from Ticket s"); //, Ticket.class);
 		List<Ticket> allTickets = q.getResultList();			
 		System.out.println(" -- ID -- ROWNUMBER -- SEATNUMBER");
 		for(Ticket ticket : allTickets){

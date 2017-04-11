@@ -3,11 +3,8 @@ package net.jees.ee.persistence.entities;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  * Represents a unique Person identified by the pre- and surname.
