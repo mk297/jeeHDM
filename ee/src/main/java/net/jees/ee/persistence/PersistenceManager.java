@@ -2,11 +2,14 @@ package net.jees.ee.persistence;
 
 import java.util.Collection;
 
+import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.UserTransaction;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,23 +19,26 @@ import net.jees.ee.persistence.entities.pk.CompositePrimaryKey;
 public class PersistenceManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PersistenceManager.class);
 
-	@PersistenceContext(unitName="sqlite")
+	@PersistenceContext(unitName = "sqlite")
 	private EntityManager entityManager;
+
+	@Resource
+	UserTransaction userTransaction;
 
 	/**
 	 * Persist a given {@link Object} annotated with {@link Entity} to the
 	 * database.
 	 * 
 	 * @param object
-	 *            The object to persist.
+	 *          The object to persist.
 	 * @return <code>true</code> if persisted successfully, else
 	 *         <code>false</code>
 	 */
 	public boolean persistObject(Object object) {
 		try {
-			entityManager.getTransaction().begin();
+			userTransaction.begin();
 			entityManager.persist(object);
-			entityManager.getTransaction().commit();
+			userTransaction.commit();
 			return true;
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
@@ -46,9 +52,9 @@ public class PersistenceManager {
 	 * {@link Class} and corresponding primary key.
 	 * 
 	 * @param objectClass
-	 *            The type of class to load.
+	 *          The type of class to load.
 	 * @param id
-	 *            The primary key to search for.
+	 *          The primary key to search for.
 	 * @return
 	 */
 	public <T> T loadObject(Class<T> objectClass, int id) {
@@ -65,9 +71,9 @@ public class PersistenceManager {
 	 * {@link Class} and corresponding {@link CompositePrimaryKey}.
 	 * 
 	 * @param objectClass
-	 *            The type of the class to load.
+	 *          The type of the class to load.
 	 * @param compositePrimaryKey
-	 *            The composite primary key to search for.
+	 *          The composite primary key to search for.
 	 * @return
 	 */
 	public <T> T loadObject(Class<T> objectClass, CompositePrimaryKey compositePrimaryKey) {
@@ -80,7 +86,13 @@ public class PersistenceManager {
 	}
 
 	public <T> Collection<T> loadAll(Class<T> domainClass) {
-		Query query = entityManager.createNativeQuery("FROM " + domainClass.getSimpleName(), domainClass);
-		return query.getResultList();
+		try {
+
+			Query query = entityManager.createNativeQuery("SELECT * FROM " + domainClass.getSimpleName(), domainClass);
+			return query.getResultList();
+		} catch (Exception e) {
+			LOGGER.error("Exception reading {}:\n {}", domainClass.getName(), e);
+		}
+		return null;
 	}
 }

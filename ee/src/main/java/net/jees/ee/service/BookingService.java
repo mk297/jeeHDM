@@ -1,14 +1,19 @@
 package net.jees.ee.service;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import net.jees.ee.persistence.PersistenceManager;
 import net.jees.ee.persistence.entities.Person;
 import net.jees.ee.persistence.entities.Ticket;
 
+@Named(value = "bookingService")
 @ApplicationScoped
 public class BookingService {
 	@Inject
@@ -45,6 +50,37 @@ public class BookingService {
 	 * @return All reservations.
 	 */
 	public Collection<Ticket> getReservations() {
-		return persistenceManager.loadAll(Ticket.class);
+		List<Ticket> reservations = (List<Ticket>) persistenceManager.loadAll(Ticket.class);
+
+		sortForRowsAndSeats(reservations);
+
+		return reservations;
+	}
+
+	/**
+	 * Sorts the list such that the tickets with the smallest row are at top. As
+	 * the row equals the smallest seat will be the highest.
+	 * 
+	 * @param reservations
+	 *          The list of reservations to sort.
+	 */
+	private void sortForRowsAndSeats(List<Ticket> reservations) {
+		Collections.sort(reservations, new Comparator<Ticket>() {
+			@Override
+			public int compare(Ticket o1, Ticket o2) {
+				if (o1.getRow() > o2.getRow())
+					return 1;
+				else if (o1.getRow() == o2.getRow())
+					if (o1.getSeat() > o2.getSeat())
+						return 1;
+					else if (o1.getSeat() == o2.getSeat())
+						return 0;
+					else
+						return -1;
+				else
+					return -1;
+			}
+
+		});
 	}
 }

@@ -6,7 +6,8 @@
    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
    
    <persistence-unit name="sqlite" transaction-type="RESOURCE_LOCAL">
-   
+   	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+   		
       <class>net.jees.ee.persistence.entities.Person</class>
       <class>net.jees.ee.persistence.entities.Ticket</class>
 
@@ -20,4 +21,5 @@
       </properties>
       
    </persistence-unit>
+   
 </persistence>
