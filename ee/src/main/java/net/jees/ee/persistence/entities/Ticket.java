@@ -14,12 +14,23 @@ public class Ticket {
 	@Id
 	private int seat;
 
+	private String movieName;
+
+	public String getMovieName() {
+		return movieName;
+	}
+
+	public void setMovieName(String movieName) {
+		this.movieName = movieName;
+	}
+
 	public Ticket() {
 	};
 
-	public Ticket(int row, int seat) {
+	public Ticket(int row, int seat, String movieName) {
 		this.row = row;
 		this.seat = seat;
+		this.movieName = movieName;
 	}
 
 	public int getRow() {
@@ -33,6 +44,7 @@ public class Ticket {
 	public int getSeat() {
 		return seat;
 	}
+
 	public void setSeat(int seat) {
 		this.seat = seat;
 	}

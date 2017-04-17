@@ -16,13 +16,22 @@ public class BookingEndpoint {
 	@Inject
 	private BookingService bookingService;
 
+//	@POST
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public String bookSeat(@QueryParam(value = "seat") int seat, @QueryParam(value = "row") int row,
+//	    @QueryParam(value = "personID") int personID) {
+//		System.out.println("post");
+//		return JsonHelper.jsonfySuccessAnswer(bookingService.reservateSeat(seat, row, personID));
+//	}
+	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public String bookSeat(@QueryParam(value = "seat") int seat, @QueryParam(value = "row") int row,
-	    @QueryParam(value = "personID") int personID) {
+	    @QueryParam(value = "movieName") String movieName, @QueryParam(value = "personID") int personID) {
 		System.out.println("post");
-		return JsonHelper.jsonfySuccessAnswer(bookingService.reservateSeat(seat, row, personID));
+		return JsonHelper.jsonfySuccessAnswer(bookingService.bookMovie(seat, row, movieName, personID));
 	}
+
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

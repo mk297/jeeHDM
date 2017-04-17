@@ -31,10 +31,24 @@ public class BookingService {
 	 * @return <code>true</code> if the seat was booked successfully, or
 	 *         <code>false</code> if the seat was already taken.
 	 */
-	public boolean reservateSeat(int seat, int row, int personID) {
+//	public boolean reservateSeat(int seat, int row, int personID) {
+//		final Person person = persistenceManager.loadObject(Person.class, personID);
+//
+//		final Ticket ticket = new Ticket(row, seat);
+//
+//		if (persistenceManager.persistObject(ticket)) {
+//			person.getTickets().add(ticket);
+//
+//			return true;
+//		}
+//
+//		return false;
+//	}
+
+	public boolean bookMovie(int seat, int row, String movieName, int personID) {
 		final Person person = persistenceManager.loadObject(Person.class, personID);
 
-		final Ticket ticket = new Ticket(row, seat);
+		final Ticket ticket = new Ticket(row, seat, movieName);
 
 		if (persistenceManager.persistObject(ticket)) {
 			person.getTickets().add(ticket);
@@ -44,7 +58,7 @@ public class BookingService {
 
 		return false;
 	}
-
+	
 	/**
 	 *
 	 * @return All reservations.
@@ -55,6 +69,14 @@ public class BookingService {
 		sortForRowsAndSeats(reservations);
 
 		return reservations;
+	}
+	
+	/**
+	 * 
+	 * @return All persons in the cinema system.
+	 */
+	public Collection<Person> getPersons() {
+		return persistenceManager.loadAll(Person.class);
 	}
 
 	/**

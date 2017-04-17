@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:ui="http://java.sun.com/jsf/facelets" 
-  xmlns:f = "http://java.sun.com/jsf/core">
+<html lang="en" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,32 +11,39 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-  <div class="container">
-    <h2>Seat Booking - Lord of the Rings II</h2>
-    <div class="row">
-    <div class="col-md-3">
-    <h:dataTable value="#{bookingService.reservations}" var="ticket" styleClass="table table-striped table-bordered">
+	<div class="container">
+		<h2>Seat Booking - Lord of the Rings II</h2>
+		<div class="row">
+			<div class="col-md-3">
+				<h:dataTable value="#{bookingService.persons}" var="person"
+					styleClass="table table-striped table-bordered">
 
-      <h:column>
-        <f:facet name="header">Seat</f:facet>    				
-               #{ticket.seat}
+					<h:column>
+						<f:facet name="header">Prename</f:facet>    				
+               #{person.preName}
       </h:column>
 
-      <h:column>
-        <f:facet name="header">Row</f:facet>
-               #{ticket.row}
+					<h:column>
+						<f:facet name="header">Surname</f:facet>
+               #{person.surName}
       </h:column>
-    </h:dataTable>
-    </div></div>
-  </div>
+
+					<h:column>
+						<f:facet name="header">Tickets</f:facet>
+						#{person.tickets}
+					</h:column>
+				</h:dataTable>
+			</div>
+		</div>
+	</div>
 
 
 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script
-    src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/sparkling-java.js"></script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/sparkling-java.js"></script>
 </body>
 </html>
