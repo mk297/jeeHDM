@@ -31,32 +31,26 @@ public class BookingService {
 	 * @return <code>true</code> if the seat was booked successfully, or
 	 *         <code>false</code> if the seat was already taken.
 	 */
-//	public boolean reservateSeat(int seat, int row, int personID) {
-//		final Person person = persistenceManager.loadObject(Person.class, personID);
-//
-//		final Ticket ticket = new Ticket(row, seat);
-//
-//		if (persistenceManager.persistObject(ticket)) {
-//			person.getTickets().add(ticket);
-//
-//			return true;
-//		}
-//
-//		return false;
-//	}
-
-	public boolean bookMovie(int seat, int row, String movieName, int personID) {
+	public boolean bookMovie(int seat, int row, int personID) {
 		final Person person = persistenceManager.loadObject(Person.class, personID);
 
-		final Ticket ticket = new Ticket(row, seat, movieName);
+		final Ticket ticket = new Ticket(row, seat);
 
-		if (persistenceManager.persistObject(ticket)) {
+		if (null != person) {
 			person.getTickets().add(ticket);
-
+			
+			persistenceManager.persistObject(person);
+			
 			return true;
 		}
 
 		return false;
+	}
+	
+	public boolean createPerson(String preName, String surName) {
+		final Person person = new Person(preName, surName);
+		
+		return persistenceManager.persistObject(person);
 	}
 	
 	/**

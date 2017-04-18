@@ -1,8 +1,13 @@
 package net.jees.ee.persistence.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -13,13 +18,25 @@ import javax.persistence.OneToMany;
 @Entity
 public class Person {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Ticket> tickets = new ArrayList<>();
 
 	private String preName;
 	private String surName;
 
-	@OneToMany
-	private List<Ticket> tickets;
+	public Person() {
+		// Required for JPA
+	}
+
+	public Person(String preName, String surName) {
+		this.preName = preName;
+		this.surName = surName;
+	}
+
+	// Getters and setters from here on for JPA
 
 	public List<Ticket> getTickets() {
 		return tickets;

@@ -1,11 +1,11 @@
 package net.jees.ee.rest;
 
 import javax.inject.Inject;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import net.jees.ee.json.JsonHelper;
@@ -16,27 +16,24 @@ public class BookingEndpoint {
 	@Inject
 	private BookingService bookingService;
 
-//	@POST
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public String bookSeat(@QueryParam(value = "seat") int seat, @QueryParam(value = "row") int row,
-//	    @QueryParam(value = "personID") int personID) {
-//		System.out.println("post");
-//		return JsonHelper.jsonfySuccessAnswer(bookingService.reservateSeat(seat, row, personID));
-//	}
-	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public String bookSeat(@QueryParam(value = "seat") int seat, @QueryParam(value = "row") int row,
-	    @QueryParam(value = "movieName") String movieName, @QueryParam(value = "personID") int personID) {
-		System.out.println("post");
-		return JsonHelper.jsonfySuccessAnswer(bookingService.bookMovie(seat, row, movieName, personID));
+	public String bookSeat(@FormParam(value = "seat") int seat, @FormParam(value = "row") int row,
+			@FormParam(value = "personID") int personID) {
+		return JsonHelper.jsonfySuccessAnswer(bookingService.bookMovie(seat, row, personID));
 	}
 
+	@POST
+	@Path(value="/person")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String createPerson(@FormParam(value= "preName") String preName, @FormParam(value="surName") String surName) {
+		return JsonHelper.jsonfySuccessAnswer(bookingService.createPerson(preName, surName));
+	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getReservations() {
-		System.out.println("post");
+		System.out.println("get");
 		return JsonHelper.jsonfyReservations(bookingService.getReservations());
 	}
 }

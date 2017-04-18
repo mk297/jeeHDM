@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
 <head>
 <meta charset="utf-8" />
@@ -14,25 +13,58 @@
 	<div class="container">
 		<h2>Seat Booking - Lord of the Rings II</h2>
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-4">
 				<h:dataTable value="#{bookingService.persons}" var="person"
 					styleClass="table table-striped table-bordered">
 
 					<h:column>
+						<f:facet name="header">ID</f:facet>    				
+               			#{person.id}
+      				</h:column>
+
+
+					<h:column>
 						<f:facet name="header">Prename</f:facet>    				
-               #{person.preName}
-      </h:column>
+               			#{person.preName}
+      				</h:column>
 
 					<h:column>
 						<f:facet name="header">Surname</f:facet>
-               #{person.surName}
-      </h:column>
+			            #{person.surName}
+			      	</h:column>
 
 					<h:column>
 						<f:facet name="header">Tickets</f:facet>
-						#{person.tickets}
+						<h:dataTable value="#{person.tickets}" var="ticket"
+							styleClass="table table-striped table-bordered">
+							<h:column>
+								<f:facet name="header">Row</f:facet>    				
+               					#{ticket.row}
+      						</h:column>
+      						<h:column>
+								<f:facet name="header">Seat</f:facet>    				
+               					#{ticket.seat}
+      						</h:column>
+						</h:dataTable>
 					</h:column>
 				</h:dataTable>
+			</div>
+			<div class="col-md-2">
+				<form action="rest/booking/person" method="post">
+					Prename: <input type="text" name="preName" class="form-control" />
+					Surname: <input type="text" name="surName" class="form-control" />
+					<br /> <input type="submit" value="Create person"
+						class="btn btn-default" />
+				</form>
+			</div>
+			<div class="col-md-2">
+				<form action="rest/booking" method="post">
+					Person ID: <input type="text" name="personID" class="form-control" />
+					Row: <input type="text" name="row" class="form-control" />
+					Seat: <input type="text" name="seat" class="form-control" />
+					<br /> <input type="submit" value="Book seat"
+						class="btn btn-default" />
+				</form>
 			</div>
 		</div>
 	</div>
