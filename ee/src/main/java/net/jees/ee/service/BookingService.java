@@ -39,9 +39,7 @@ public class BookingService {
 		if (null != person) {
 			person.getTickets().add(ticket);
 
-			persistenceManager.persistObject(person);
-
-			return true;
+			return persistenceManager.persistObject(person);
 		}
 
 		return false;

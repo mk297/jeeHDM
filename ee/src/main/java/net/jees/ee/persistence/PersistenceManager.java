@@ -36,8 +36,9 @@ public class PersistenceManager {
 			entityManager.getTransaction().commit();
 			hadSuccess = true;
 		} catch (Exception e) {
-			entityManager.getTransaction().rollback();
-			LOGGER.error("Wasn't able to persist entity + " + object + " a rollback was performed. Error: ", e);
+			if (entityManager.getTransaction().isActive())
+				entityManager.getTransaction().rollback();
+			LOGGER.error("Wasn't able to persist entity " + object + " a rollback was performed. Error: ", e);
 		}
 
 		return hadSuccess;
@@ -51,8 +52,9 @@ public class PersistenceManager {
 			entityManager.getTransaction().commit();
 			hadSuccess = true;
 		} catch (Exception e) {
-			entityManager.getTransaction().rollback();
-			LOGGER.error("Wasn't able to persist entity + " + object + " a rollback was performed. Error: ", e);
+			if (entityManager.getTransaction().isActive())
+				entityManager.getTransaction().rollback();
+			LOGGER.error("Wasn't able to persist entity " + object + " a rollback was performed. Error: ", e);
 		}
 
 		return hadSuccess;
