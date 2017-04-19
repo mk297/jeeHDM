@@ -1,26 +1,26 @@
-function deletePerson() {
-	$.post( 'rest/booking/deletePerson', { personID: $('#personID').val() })
+$('#deletePerson').click(function (event) {
+	$.post( 'rest/booking/deletePerson', { personID: $('#delPersonID').val() })
     .done(function( data ) {
         alert( 'Successfull: ' + data.success );
         location.reload();
       });
 	event.preventDefault();
-}
+});
 
-function createPerson() {
+$('#createPerson').click(function (event) {
 	$.post( 'rest/booking/createPerson', { preName: $('#preName').val(),surName: $('#surName').val() })
     .done(function( data ) {
         alert( 'Successfull: ' + data.success );
         location.reload();
       });
 	event.preventDefault();
-}
+});
 
-function bookSeat() {
-	$.post( 'rest/booking/deletePerson', { personID: $('#personID').val() })
+$('#bookSeat').click(function (event) {
+	$.post( 'rest/booking', { personID: $('#personID').val(), seat: $('#seat').val(), row: $('#row').val()})
     .done(function( data ) {
         alert( 'Successfull: ' + data.success );
         location.reload();
       });
 	event.preventDefault();
-}
+});

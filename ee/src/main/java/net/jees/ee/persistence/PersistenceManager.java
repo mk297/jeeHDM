@@ -43,7 +43,7 @@ public class PersistenceManager {
 		return hadSuccess;
 	}
 
-	public boolean delteObject(Object object) {
+	public boolean deleteObject(Object object) {
 		boolean hadSuccess = false;
 		try {
 			entityManager.getTransaction().begin();

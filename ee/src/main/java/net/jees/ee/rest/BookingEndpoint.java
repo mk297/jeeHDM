@@ -34,7 +34,7 @@ public class BookingEndpoint {
 	@POST
 	@Path(value = "/deletePerson")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String createPerson(@FormParam(value = "personID") int personID) {
+	public String deletePerson(@FormParam(value = "personID") int personID) {
 		return JsonHelper.jsonfySuccessAnswer(bookingService.deletePerson(personID));
 	}
 

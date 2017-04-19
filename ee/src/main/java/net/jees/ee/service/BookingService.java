@@ -59,7 +59,7 @@ public class BookingService {
 		if (null == person)
 			return false;
 
-		return persistenceManager.delteObject(person);
+		return persistenceManager.deleteObject(person);
 	}
 
 	/**

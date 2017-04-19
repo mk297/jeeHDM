@@ -59,7 +59,7 @@
                 Prename: <input type="text" id="preName" class="form-control" required="true" /> 
                 Surname: <input type="text" id="surName" class="form-control" required="true" /> 
                 <br /> 
-                <input type="submit" value="Create person" class="btn btn-success" onClick="createPerson();" />
+                <input type="submit" value="Create person" class="btn btn-success" id="createPerson" />
               </form>
           </div>
         </div>
@@ -71,9 +71,9 @@
           </div>
           <div class="panel-body">
           <form>
-              Person ID: <input type="text" id="personID" class="form-control" required="true" />
+              Person ID: <input type="text" id="delPersonID" class="form-control" required="true" />
               <br /> 
-              <input type="submit" value="Delete person" class="btn btn-danger" onClick="deletePerson()" />
+              <input type="submit" value="Delete person" class="btn btn-danger" id="deletePerson" />
               </form>
           </div>
         </div>
@@ -84,12 +84,12 @@
             <h4>Ticket booking</h4>
           </div>
           <div class="panel-body">
-            <form action="" method="post">
-              Person ID: <input type="text" name="personID" class="form-control" required="true" /> 
-              Row: <input type="text" name="row" class="form-control" required="true" /> 
-              Seat: <input type="text" name="seat" class="form-control" required="true" /> 
+            <form>
+              Person ID: <input type="text" id="personID" class="form-control" required="true" /> 
+              Row: <input type="text" id="row" class="form-control" required="true" /> 
+              Seat: <input type="text" id="seat" class="form-control" required="true" /> 
               <br />
-              <input type="submit" value="Book seat" class="btn btn-default" />
+              <input type="submit" value="Book seat" class="btn btn-default" id="bookSeat" />
             </form>
           </div>
         </div>
