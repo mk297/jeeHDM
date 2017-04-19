@@ -1,6 +1,26 @@
-function insertInitialPlacments(data) {
-	alert(data);
+function deletePerson() {
+	$.post( 'rest/booking/deletePerson', { personID: $('#personID').val() })
+    .done(function( data ) {
+        alert( 'Successfull: ' + data.success );
+        location.reload();
+      });
+	event.preventDefault();
 }
 
+function createPerson() {
+	$.post( 'rest/booking/createPerson', { preName: $('#preName').val(),surName: $('#surName').val() })
+    .done(function( data ) {
+        alert( 'Successfull: ' + data.success );
+        location.reload();
+      });
+	event.preventDefault();
+}
 
-$.get("localhost:9990/management/booking", insertInitialPlacments);
+function bookSeat() {
+	$.post( 'rest/booking/deletePerson', { personID: $('#personID').val() })
+    .done(function( data ) {
+        alert( 'Successfull: ' + data.success );
+        location.reload();
+      });
+	event.preventDefault();
+}

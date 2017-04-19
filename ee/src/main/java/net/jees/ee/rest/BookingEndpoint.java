@@ -19,15 +19,23 @@ public class BookingEndpoint {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public String bookSeat(@FormParam(value = "seat") int seat, @FormParam(value = "row") int row,
-			@FormParam(value = "personID") int personID) {
+	    @FormParam(value = "personID") int personID) {
 		return JsonHelper.jsonfySuccessAnswer(bookingService.bookMovie(seat, row, personID));
 	}
 
 	@POST
-	@Path(value="/person")
+	@Path(value = "/createPerson")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String createPerson(@FormParam(value= "preName") String preName, @FormParam(value="surName") String surName) {
+	public String createPerson(@FormParam(value = "preName") String preName,
+	    @FormParam(value = "surName") String surName) {
 		return JsonHelper.jsonfySuccessAnswer(bookingService.createPerson(preName, surName));
+	}
+
+	@POST
+	@Path(value = "/deletePerson")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String createPerson(@FormParam(value = "personID") int personID) {
+		return JsonHelper.jsonfySuccessAnswer(bookingService.deletePerson(personID));
 	}
 
 	@GET

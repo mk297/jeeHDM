@@ -38,21 +38,30 @@ public class BookingService {
 
 		if (null != person) {
 			person.getTickets().add(ticket);
-			
+
 			persistenceManager.persistObject(person);
-			
+
 			return true;
 		}
 
 		return false;
 	}
-	
+
 	public boolean createPerson(String preName, String surName) {
 		final Person person = new Person(preName, surName);
-		
+
 		return persistenceManager.persistObject(person);
 	}
-	
+
+	public boolean deletePerson(int personID) {
+		final Person person = persistenceManager.loadObject(Person.class, personID);
+
+		if (null == person)
+			return false;
+
+		return persistenceManager.delteObject(person);
+	}
+
 	/**
 	 *
 	 * @return All reservations.
@@ -64,7 +73,7 @@ public class BookingService {
 
 		return reservations;
 	}
-	
+
 	/**
 	 * 
 	 * @return All persons in the cinema system.

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+  xmlns:f="http://java.sun.com/jsf/core">
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,72 +10,100 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-	<div class="container">
-		<h2>Seat Booking - Lord of the Rings II</h2>
-		<div class="row">
-			<div class="col-md-4">
-				<h:dataTable value="#{bookingService.persons}" var="person"
-					styleClass="table table-striped table-bordered">
+  <div class="container">
+    <h2>Seat Booking - Lord of the Rings II</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <h:dataTable value="#{bookingService.persons}" var="person"
+          styleClass="table table-striped table-bordered">
 
-					<h:column>
-						<f:facet name="header">ID</f:facet>    				
+          <h:column>
+            <f:facet name="header">ID</f:facet>    				
                			#{person.id}
       				</h:column>
 
 
-					<h:column>
-						<f:facet name="header">Prename</f:facet>    				
+          <h:column>
+            <f:facet name="header">Prename</f:facet>    				
                			#{person.preName}
       				</h:column>
 
-					<h:column>
-						<f:facet name="header">Surname</f:facet>
+          <h:column>
+            <f:facet name="header">Surname</f:facet>
 			            #{person.surName}
 			      	</h:column>
 
-					<h:column>
-						<f:facet name="header">Tickets</f:facet>
-						<h:dataTable value="#{person.tickets}" var="ticket"
-							styleClass="table table-striped table-bordered">
-							<h:column>
-								<f:facet name="header">Row</f:facet>    				
+          <h:column>
+            <f:facet name="header">Tickets</f:facet>
+            <h:dataTable value="#{person.tickets}" var="ticket"
+              styleClass="table table-striped table-bordered">
+              <h:column>
+                <f:facet name="header">Row</f:facet>    				
                					#{ticket.row}
       						</h:column>
-      						<h:column>
-								<f:facet name="header">Seat</f:facet>    				
+              <h:column>
+                <f:facet name="header">Seat</f:facet>    				
                					#{ticket.seat}
       						</h:column>
-						</h:dataTable>
-					</h:column>
-				</h:dataTable>
-			</div>
-			<div class="col-md-2">
-				<form action="rest/booking/person" method="post">
-					Prename: <input type="text" name="preName" class="form-control" />
-					Surname: <input type="text" name="surName" class="form-control" />
-					<br /> <input type="submit" value="Create person"
-						class="btn btn-default" />
-				</form>
-			</div>
-			<div class="col-md-2">
-				<form action="rest/booking" method="post">
-					Person ID: <input type="text" name="personID" class="form-control" />
-					Row: <input type="text" name="row" class="form-control" />
-					Seat: <input type="text" name="seat" class="form-control" />
-					<br /> <input type="submit" value="Book seat"
-						class="btn btn-default" />
-				</form>
-			</div>
-		</div>
-	</div>
+            </h:dataTable>
+          </h:column>
+        </h:dataTable>
+      </div>
+      <div class="col-md-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Person creation</h4>
+          </div>
+          <div class="panel-body">
+            <form>
+                Prename: <input type="text" id="preName" class="form-control" required="true" /> 
+                Surname: <input type="text" id="surName" class="form-control" required="true" /> 
+                <br /> 
+                <input type="submit" value="Create person" class="btn btn-success" onClick="createPerson();" />
+              </form>
+          </div>
+        </div>
+      </div>
+       <div class="col-md-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Person deletion</h4>
+          </div>
+          <div class="panel-body">
+          <form>
+              Person ID: <input type="text" id="personID" class="form-control" required="true" />
+              <br /> 
+              <input type="submit" value="Delete person" class="btn btn-danger" onClick="deletePerson()" />
+              </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Ticket booking</h4>
+          </div>
+          <div class="panel-body">
+            <form action="" method="post">
+              Person ID: <input type="text" name="personID" class="form-control" required="true" /> 
+              Row: <input type="text" name="row" class="form-control" required="true" /> 
+              Seat: <input type="text" name="seat" class="form-control" required="true" /> 
+              <br />
+              <input type="submit" value="Book seat" class="btn btn-default" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/sparkling-java.js"></script>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/sparkling-java.js"></script>
 </body>
 </html>

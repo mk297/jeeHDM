@@ -2,18 +2,11 @@ package net.jees.ee.persistence;
 
 import java.util.Collection;
 
-import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Produces;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
-import javax.transaction.SystemException;
-import javax.transaction.UserTransaction;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +33,21 @@ public class PersistenceManager {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(object);
+			entityManager.getTransaction().commit();
+			hadSuccess = true;
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			LOGGER.error("Wasn't able to persist entity + " + object + " a rollback was performed. Error: ", e);
+		}
+
+		return hadSuccess;
+	}
+
+	public boolean delteObject(Object object) {
+		boolean hadSuccess = false;
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.remove(object);
 			entityManager.getTransaction().commit();
 			hadSuccess = true;
 		} catch (Exception e) {
