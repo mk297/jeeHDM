@@ -1,111 +1,42 @@
 package net.jees.ee.persistence;
 
+import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.enterprise.context.RequestScoped;
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import net.jees.ee.persistence.entities.pk.CompositePrimaryKey;
+import net.jees.ee.persistence.entities.Person;
+import net.jees.ee.persistence.entities.Ticket;
 
 @RequestScoped
 public class PersistenceManager {
-	private static final Logger LOGGER = LoggerFactory.getLogger(PersistenceManager.class);
-
-	private EntityManager entityManager = Persistence.createEntityManagerFactory("sqlite").createEntityManager();
-
 	/**
-	 * Persist a given {@link Object} annotated with {@link Entity} to the
-	 * database.
+	 * Database stub. Returns a list of persons. 
 	 * 
-	 * @param object
-	 *          The object to persist.
-	 * @return <code>true</code> if persisted successfully, else
-	 *         <code>false</code>
-	 */
-	public boolean persistObject(Object object) {
-		boolean hadSuccess = false;
-		try {
-			entityManager.getTransaction().begin();
-			entityManager.persist(object);
-			entityManager.getTransaction().commit();
-			hadSuccess = true;
-		} catch (Exception e) {
-			if (entityManager.getTransaction().isActive())
-				entityManager.getTransaction().rollback();
-			LOGGER.error("Wasn't able to persist entity " + object + " a rollback was performed. Error: ", e);
-		}
-
-		return hadSuccess;
-	}
-
-	public boolean deleteObject(Object object) {
-		boolean hadSuccess = false;
-		try {
-			entityManager.getTransaction().begin();
-			entityManager.remove(object);
-			entityManager.getTransaction().commit();
-			hadSuccess = true;
-		} catch (Exception e) {
-			if (entityManager.getTransaction().isActive())
-				entityManager.getTransaction().rollback();
-			LOGGER.error("Wasn't able to persist entity " + object + " a rollback was performed. Error: ", e);
-		}
-
-		return hadSuccess;
-	}
-
-	/**
-	 * Load a given {@link Object} from the database, identified by its
-	 * {@link Class} and corresponding primary key.
-	 * 
-	 * @param objectClass
-	 *          The type of class to load.
-	 * @param id
-	 *          The primary key to search for.
+	 * @param domainClass The class to load. Only {@link Person}.class is allowed.
 	 * @return
 	 */
-	public <T> T loadObject(Class<T> objectClass, int id) {
-		try {
-			return entityManager.find(objectClass, id);
-		} catch (Exception e) {
-			LOGGER.error("Exception reading {}:\n {}", objectClass.getName(), e);
-		}
-		return null;
-	}
-
-	/**
-	 * Load a given {@link Object} from the database, identified by its
-	 * {@link Class} and corresponding {@link CompositePrimaryKey}.
-	 * 
-	 * @param objectClass
-	 *          The type of the class to load.
-	 * @param compositePrimaryKey
-	 *          The composite primary key to search for.
-	 * @return
-	 */
-	public <T> T loadObject(Class<T> objectClass, CompositePrimaryKey compositePrimaryKey) {
-		try {
-			return entityManager.find(objectClass, compositePrimaryKey);
-		} catch (Exception e) {
-			LOGGER.error("Exception reading {}:\n {}", objectClass.getName(), e);
-		}
-		return null;
-	}
-
+	@SuppressWarnings("unchecked")
 	public <T> Collection<T> loadAll(Class<T> domainClass) {
-		try {
-
-			Query query = entityManager.createNativeQuery("SELECT * FROM " + domainClass.getSimpleName(), domainClass);
-			return query.getResultList();
-		} catch (Exception e) {
-			LOGGER.error("Exception reading {}:\n {}", domainClass.getName(), e);
-		}
-		return null;
+		if (Person.class.equals(domainClass) == false)
+			throw new IllegalArgumentException("Accepting only persons, you've provided a " + domainClass.getSimpleName());
+		
+		final Collection<T> persons = new ArrayList<>();
+		
+		final Person ePerson = new Person("Elisabeth","Blumenbeet");
+		ePerson.setId(1);
+		ePerson.getTickets().add(new Ticket(2, 4));
+		ePerson.getTickets().add(new Ticket(3,4));
+		persons.add((T) ePerson);
+		
+		final Person sPerson = new Person("San","Eisenbahn");
+		sPerson.setId(2);
+		sPerson.getTickets().add(new Ticket(5,4));
+		persons.add((T) sPerson);
+		
+		final Person mPerson = new Person("Max","Keinmustermann");
+		mPerson.setId(3);
+		mPerson.getTickets().add(new Ticket(1,2));
+		persons.add((T) mPerson);
+		
+	 return persons;
 	}
 }

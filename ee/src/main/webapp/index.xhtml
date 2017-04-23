@@ -18,7 +18,7 @@
           styleClass="table table-striped table-bordered">
 
           <h:column>
-            <f:facet name="header">ID</f:facet>    				
+            <f:facet name="header">ID</f:facet>		
                			#{person.id}
       				</h:column>
 
@@ -48,51 +48,6 @@
             </h:dataTable>
           </h:column>
         </h:dataTable>
-      </div>
-      <div class="col-md-2">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4>Person creation</h4>
-          </div>
-          <div class="panel-body">
-            <form>
-                Prename: <input type="text" id="preName" class="form-control" required="true" /> 
-                Surname: <input type="text" id="surName" class="form-control" required="true" /> 
-                <br /> 
-                <input type="submit" value="Create person" class="btn btn-success" id="createPerson" />
-              </form>
-          </div>
-        </div>
-      </div>
-       <div class="col-md-2">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4>Person deletion</h4>
-          </div>
-          <div class="panel-body">
-          <form>
-              Person ID: <input type="text" id="delPersonID" class="form-control" required="true" />
-              <br /> 
-              <input type="submit" value="Delete person" class="btn btn-danger" id="deletePerson" />
-              </form>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4>Ticket booking</h4>
-          </div>
-          <div class="panel-body">
-            <form>
-              Person ID: <input type="text" id="personID" class="form-control" required="true" /> 
-              Row: <input type="text" id="row" class="form-control" required="true" /> 
-              Seat: <input type="text" id="seat" class="form-control" required="true" /> 
-              <br />
-              <input type="submit" value="Book seat" class="btn btn-info" id="bookSeat" />
-            </form>
-          </div>
-        </div>
       </div>
     </div>
   </div>
