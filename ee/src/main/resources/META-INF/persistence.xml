@@ -8,8 +8,8 @@
    <persistence-unit name="sqlite" transaction-type="RESOURCE_LOCAL">
    	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
    		
-      <class>net.jees.ee.persistence.entities.Person</class>
-      <class>net.jees.ee.persistence.entities.Ticket</class>
+<!--       <class>net.jees.ee.persistence.entities.Person</class> -->
+<!--       <class>net.jees.ee.persistence.entities.Ticket</class> -->
 
       <properties>
          <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"/>

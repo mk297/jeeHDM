@@ -1,3 +1,13 @@
+/*
+ * 1. Lege eine Methode an, die versucht bei einer Transaktion ein Objekt aus der Datenbank zu löschen.
+ * Falls dies fehlschlägt, soll sie die Änderungen rückgängig machen und einen angemessenen Fehler schmeißen. 
+ * Der Rückgabewert ist ein Boolean, der angibt, ob die Transaktion geglückt oder gescheitert ist.
+ * 
+ * 2. Erstelle eine Methode, die eine Klasse anhand ihres Composite-PrimaryKeys in einer Tabelle findet.
+ * Falls dies fehlschlägt, soll eine Fehlermeldung zurückgegeben werden.
+*/
+
+
 package net.jees.ee.persistence;
 
 import java.util.Collection;
@@ -29,34 +39,14 @@ public class PersistenceManager {
 	 *         <code>false</code>
 	 */
 	public boolean persistObject(Object object) {
+		//livecoding pt1
 		boolean hadSuccess = false;
-		try {
-			entityManager.getTransaction().begin();
-			entityManager.persist(object);
-			entityManager.getTransaction().commit();
-			hadSuccess = true;
-		} catch (Exception e) {
-			if (entityManager.getTransaction().isActive())
-				entityManager.getTransaction().rollback();
-			LOGGER.error("Wasn't able to persist entity " + object + " a rollback was performed. Error: ", e);
-		}
-
 		return hadSuccess;
 	}
 
 	public boolean deleteObject(Object object) {
+		//Übung Persistence - 1
 		boolean hadSuccess = false;
-		try {
-			entityManager.getTransaction().begin();
-			entityManager.remove(object);
-			entityManager.getTransaction().commit();
-			hadSuccess = true;
-		} catch (Exception e) {
-			if (entityManager.getTransaction().isActive())
-				entityManager.getTransaction().rollback();
-			LOGGER.error("Wasn't able to persist entity " + object + " a rollback was performed. Error: ", e);
-		}
-
 		return hadSuccess;
 	}
 
@@ -71,11 +61,7 @@ public class PersistenceManager {
 	 * @return
 	 */
 	public <T> T loadObject(Class<T> objectClass, int id) {
-		try {
-			return entityManager.find(objectClass, id);
-		} catch (Exception e) {
-			LOGGER.error("Exception reading {}:\n {}", objectClass.getName(), e);
-		}
+		//livecoding pt2
 		return null;
 	}
 
@@ -90,22 +76,12 @@ public class PersistenceManager {
 	 * @return
 	 */
 	public <T> T loadObject(Class<T> objectClass, CompositePrimaryKey compositePrimaryKey) {
-		try {
-			return entityManager.find(objectClass, compositePrimaryKey);
-		} catch (Exception e) {
-			LOGGER.error("Exception reading {}:\n {}", objectClass.getName(), e);
-		}
+		//Übung Persistence - 2 
 		return null;
 	}
 
 	public <T> Collection<T> loadAll(Class<T> domainClass) {
-		try {
-
-			Query query = entityManager.createNativeQuery("SELECT * FROM " + domainClass.getSimpleName(), domainClass);
-			return query.getResultList();
-		} catch (Exception e) {
-			LOGGER.error("Exception reading {}:\n {}", domainClass.getName(), e);
-		}
+		//Livecoding nativeQuery
 		return null;
 	}
 }

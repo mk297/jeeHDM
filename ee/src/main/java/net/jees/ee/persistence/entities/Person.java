@@ -1,3 +1,13 @@
+/*
+ * Ü B U N G  
+ * 1. Annotiere die Klasse Person als Entität.
+ * 2. Erstelle eine ID-Variable, die du als Primary Key definierst und die automatisch inkrementiert wird.
+ * 3. Erstelle je eine Variable, die den Vor- bzw. den Nachnamen der Person hält
+ *    und lege einen Konstruktor an, der Vor- und Nachname als Parameter entgegennimmt.
+ * 4. Lege eine OneToMany Relation zu einer Ticketliste an.
+ * 5. Erstelle alle benötigten Getter und Setter.
+ */
+
 package net.jees.ee.persistence.entities;
 
 import java.util.ArrayList;
@@ -15,59 +25,22 @@ import javax.persistence.OneToMany;
  * Represents a unique Person identified by the pre- and surname.
  *
  */
-@Entity
+
+//1
+
 public class Person {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Ticket> tickets = new ArrayList<>();
-
-	private String preName;
-	private String surName;
-
+	//2
+	
+	//3
+	
+	//4
+	
 	public Person() {
 		// Required for JPA
 	}
+	
+	//5 
+	
 
-	public Person(String preName, String surName) {
-		this.preName = preName;
-		this.surName = surName;
-	}
-
-	// Getters and setters from here on for JPA
-
-	public List<Ticket> getTickets() {
-		return tickets;
-	}
-
-	public void setTickets(List<Ticket> tickets) {
-		this.tickets = tickets;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getPreName() {
-		return preName;
-	}
-
-	public void setPreName(String preName) {
-		this.preName = preName;
-	}
-
-	public String getSurName() {
-		return surName;
-	}
-
-	public void setSurName(String surName) {
-		this.surName = surName;
-	}
 
 }
