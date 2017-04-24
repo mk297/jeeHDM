@@ -2,13 +2,11 @@ package net.jees.ee.persistence;
 
 import java.util.Collection;
 
-import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.transaction.UserTransaction;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +17,7 @@ import net.jees.ee.persistence.entities.pk.CompositePrimaryKey;
 public class PersistenceManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PersistenceManager.class);
 
-	@PersistenceContext(unitName = "sqlite")
-	private EntityManager entityManager;
-
-	@Resource
-	UserTransaction userTransaction;
+	private EntityManager entityManager = Persistence.createEntityManagerFactory("sqlite").createEntityManager();
 
 	/**
 	 * Persist a given {@link Object} annotated with {@link Entity} to the
@@ -35,16 +29,35 @@ public class PersistenceManager {
 	 *         <code>false</code>
 	 */
 	public boolean persistObject(Object object) {
+		boolean hadSuccess = false;
 		try {
-			userTransaction.begin();
+			entityManager.getTransaction().begin();
 			entityManager.persist(object);
-			userTransaction.commit();
-			return true;
+			entityManager.getTransaction().commit();
+			hadSuccess = true;
 		} catch (Exception e) {
-			entityManager.getTransaction().rollback();
-			LOGGER.error("Wasn't able to persist entity + " + object, e);
-			return false;
+			if (entityManager.getTransaction().isActive())
+				entityManager.getTransaction().rollback();
+			LOGGER.error("Wasn't able to persist entity " + object + " a rollback was performed. Error: ", e);
 		}
+
+		return hadSuccess;
+	}
+
+	public boolean deleteObject(Object object) {
+		boolean hadSuccess = false;
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.remove(object);
+			entityManager.getTransaction().commit();
+			hadSuccess = true;
+		} catch (Exception e) {
+			if (entityManager.getTransaction().isActive())
+				entityManager.getTransaction().rollback();
+			LOGGER.error("Wasn't able to persist entity " + object + " a rollback was performed. Error: ", e);
+		}
+
+		return hadSuccess;
 	}
 
 	/**
