@@ -17,12 +17,13 @@ public class BookingEndpoint {
 	private BookingService bookingService;
 
 	
+	//Live Coding
+	
 	//-- Aufgabe 1 --- 
 	//Um neue Kinobesucher anlegen zu können, soll die "POST"-Methode createPerson() realisiert werden. 
 	//Diese soll auf den relativen Pfad /booking/createPerson gemapped werden.
 	//Als Parameter soll der Vorname "preName" und Nachname "surName" (String) als Form-Parameter übergeben werden. 
 	//Als Response soll eine Erfolgsmeldung der gerade angelegten Person an den Client zurückgegeben werden. 
-	//Tipp: Verwende die Funktion createPerson(...) der bereitstehenden Klasse BookingService und die Funktion jsonfySuccessAnswer(...) der Klasse JsonHelper aus dem Package json.  
 	//----------------
 	
 	
@@ -39,20 +40,9 @@ public class BookingEndpoint {
 	//Code here
 
 	
-	
+	//Tipp: Verwende die Funktion createPerson(...) der bereitstehenden Klasse BookingService und die Funktion jsonfySuccessAnswer(...) der Klasse JsonHelper aus dem Package json.  
 	//-----------------------------
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getReservations() {
-		System.out.println("get");
-		return JsonHelper.jsonfyReservations(bookingService.getReservations());
-	}
 	
-	@POST
-	@Path(value = "/deletePerson")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String deletePerson(@FormParam(value = "personID") int personID) {
-		return JsonHelper.jsonfySuccessAnswer(bookingService.deletePerson(personID));
-	}
-	
+
 }
+
