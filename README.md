@@ -1,19 +1,11 @@
-Preface
-=======
-
-- Do never push to the *master* branch!
-- Use always a *feature* branch for pushing changes and create a pull request.
-
-Instructions for installing and using the project
-=================================================
-
-- Pull the repo
-- Update the Maven Project
-- Peform a toplevel clean if any errors persist
-- Peform a maven install
+Bei Problemen:
+- Maven Projekt updaten (Rechtsklick auf das Projekt -> Maven -> Update Project... -> Ok) 
+Falls das Problem immernoch besteht:
+- Toplevel clean (Menüleiste -> Projekt -> Clean...
 
 Übung 1 - JSF
 =============
+- Jede Person, die Ausgegeben wird, besitzt eine Liste von Tickets die sie bestellt hat. Diese Tickets sollen an der entsprechend vermerkten Stelle ebenfalls als Tabelle ausgegeben werden mit den spalten "Row" und "Seat" für jedes Ticket.
 
 
 JAX-RS
