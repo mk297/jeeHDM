@@ -28,7 +28,7 @@ JAX-RS
 	
 	
   Übung 2
-- Um einen Platz zu reservieren, soll die "POST"-Methode bookSeat() realisiert werden. 
+- Um einen Platz zu reservieren, soll die "POST"-Methode bookSeat() realisiert werden.
   Diese soll auf den root gemapped werden.
 - Als Parameter soll die Sitznummer "seat" und "row" (Integer) als Form-Parameter übergeben werden.
 - Des Weiteren soll eine "personID" (Integer) benötigt, damit Tickets einer Person zugeordnet werden kann.
