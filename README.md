@@ -20,18 +20,19 @@ Instructions for installing and using the project
 ================
 
 
-Übung 3 - JPA
-=============
-- 1. Lege eine Methode an, die versucht bei einer Transaktion ein Objekt aus der Datenbank zu löschen.
+JPA
+===
+  Übung 1
+- Lege eine Methode an, die versucht bei einer Transaktion ein Objekt aus der Datenbank zu löschen.
   Falls dies fehlschlägt, soll sie die Änderungen rückgängig machen und einen angemessenen Fehler schmeißen. 
   Der Rückgabewert ist ein Boolean, der angibt, ob die Transaktion geglückt oder gescheitert ist.
+- Erstelle eine Methode, die eine Klasse anhand ihres Composite-PrimaryKeys in einer Tabelle findet.
+  Falls dies fehlschlägt, soll eine Fehlermeldung zurückgegeben werden.
 
-- 2. Erstelle eine Methode, die eine Klasse anhand ihres Composite-PrimaryKeys in einer Tabelle findet.
- Falls dies fehlschlägt, soll eine Fehlermeldung zurückgegeben werden.
-
-- 3. Annotiere die Klasse Person als Entität.
-- 4. Erstelle eine ID-Variable, die du als Primary Key definierst und die automatisch inkrementiert wird.
-- 5. Erstelle je eine Variable, die den Vor- bzw. den Nachnamen der Person hält
-     und lege einen Konstruktor an, der Vor- und Nachname als Parameter entgegennimmt.
-- 6. Lege eine OneToMany Relation zu einer Ticketliste an.
-- 7. Erstelle alle benötigten Getter und Setter.
+  Übung 2
+- Annotiere die Klasse Person als Entität.
+- Erstelle eine ID-Variable, die du als Primary Key definierst und die automatisch inkrementiert wird.
+- Erstelle je eine Variable, die den Vor- bzw. den Nachnamen der Person hält
+  und lege einen Konstruktor an, der Vor- und Nachname als Parameter entgegennimmt.
+- Lege eine OneToMany Relation zu einer Ticketliste an.
+- Erstelle alle benötigten Getter und Setter.
