@@ -1,7 +1,9 @@
 package net.jees.ee.persistence;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -13,12 +15,12 @@ import org.slf4j.LoggerFactory;
 
 import net.jees.ee.persistence.entities.pk.CompositePrimaryKey;
 
-@RequestScoped
+@ApplicationScoped
 public class PersistenceManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PersistenceManager.class);
 
 	private EntityManager entityManager = Persistence.createEntityManagerFactory("sqlite").createEntityManager();
-
+	private ArrayList <Object> objectList  = new ArrayList <Object>(); 
 	/**
 	 * Persist a given {@link Object} annotated with {@link Entity} to the
 	 * database.
@@ -30,33 +32,17 @@ public class PersistenceManager {
 	 */
 	public boolean persistObject(Object object) {
 		boolean hadSuccess = false;
-		try {
-			entityManager.getTransaction().begin();
-			entityManager.persist(object);
-			entityManager.getTransaction().commit();
-			hadSuccess = true;
-		} catch (Exception e) {
-			if (entityManager.getTransaction().isActive())
-				entityManager.getTransaction().rollback();
-			LOGGER.error("Wasn't able to persist entity " + object + " a rollback was performed. Error: ", e);
-		}
+		
+		objectList.add(object);
 
 		return hadSuccess;
 	}
 
 	public boolean deleteObject(Object object) {
 		boolean hadSuccess = false;
-		try {
-			entityManager.getTransaction().begin();
-			entityManager.remove(object);
-			entityManager.getTransaction().commit();
-			hadSuccess = true;
-		} catch (Exception e) {
-			if (entityManager.getTransaction().isActive())
-				entityManager.getTransaction().rollback();
-			LOGGER.error("Wasn't able to persist entity " + object + " a rollback was performed. Error: ", e);
-		}
-
+		
+		objectList.remove(object);
+		
 		return hadSuccess;
 	}
 
@@ -71,41 +57,30 @@ public class PersistenceManager {
 	 * @return
 	 */
 	public <T> T loadObject(Class<T> objectClass, int id) {
-		try {
-			return entityManager.find(objectClass, id);
-		} catch (Exception e) {
-			LOGGER.error("Exception reading {}:\n {}", objectClass.getName(), e);
-		}
-		return null;
+		
+			return (T) objectList.get(id);
 	}
-
-	/**
-	 * Load a given {@link Object} from the database, identified by its
-	 * {@link Class} and corresponding {@link CompositePrimaryKey}.
-	 * 
-	 * @param objectClass
-	 *          The type of the class to load.
-	 * @param compositePrimaryKey
-	 *          The composite primary key to search for.
-	 * @return
-	 */
-	public <T> T loadObject(Class<T> objectClass, CompositePrimaryKey compositePrimaryKey) {
-		try {
-			return entityManager.find(objectClass, compositePrimaryKey);
-		} catch (Exception e) {
-			LOGGER.error("Exception reading {}:\n {}", objectClass.getName(), e);
-		}
-		return null;
-	}
+//
+//	/**
+//	 * Load a given {@link Object} from the database, identified by its
+//	 * {@link Class} and corresponding {@link CompositePrimaryKey}.
+//	 * 
+//	 * @param objectClass
+//	 *          The type of the class to load.
+//	 * @param compositePrimaryKey
+//	 *          The composite primary key to search for.
+//	 * @return
+//	 */
+//	public <T> T loadObject(Class<T> objectClass, CompositePrimaryKey compositePrimaryKey) {
+//		try {
+//			return entityManager.find(objectClass, compositePrimaryKey);
+//		} catch (Exception e) {
+//			LOGGER.error("Exception reading {}:\n {}", objectClass.getName(), e);
+//		}
+//		return null;
+//	}
 
 	public <T> Collection<T> loadAll(Class<T> domainClass) {
-		try {
-
-			Query query = entityManager.createNativeQuery("SELECT * FROM " + domainClass.getSimpleName(), domainClass);
-			return query.getResultList();
-		} catch (Exception e) {
-			LOGGER.error("Exception reading {}:\n {}", domainClass.getName(), e);
-		}
-		return null;
+		return (Collection<T>) objectList;
 	}
 }

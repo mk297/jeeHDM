@@ -51,14 +51,7 @@ public class BookingService {
 		return persistenceManager.persistObject(person);
 	}
 
-	public boolean deletePerson(int personID) {
-		final Person person = persistenceManager.loadObject(Person.class, personID);
-
-		if (null == person)
-			return false;
-
-		return persistenceManager.deleteObject(person);
-	}
+	
 
 	/**
 	 *

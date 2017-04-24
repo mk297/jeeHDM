@@ -40,7 +40,9 @@ public class BookingEndpoint {
 	//Code here
 
 	
-	//Tipp: Verwende die Funktion createPerson(...) der bereitstehenden Klasse BookingService und die Funktion jsonfySuccessAnswer(...) der Klasse JsonHelper aus dem Package json.  
+	//Tipp: Verwende die Funktion createPerson(...) der bereitstehenden Klasse BookingService und die Funktion jsonfySuccessAnswer(...) 
+	//der Klasse JsonHelper aus dem Package json. Zusätzlich kannst du dir die Examples auf dem Cheatsheet anschauen.
+	
 	//-----------------------------
 	
 
