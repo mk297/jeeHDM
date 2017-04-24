@@ -1,13 +1,13 @@
 package net.jees.ee.service;
 
 import java.util.Collection;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import net.jees.ee.persistence.PersistenceManager;
 import net.jees.ee.persistence.entities.Person;
-import net.jees.ee.persistence.entities.Ticket;
 
 @Named(value = "bookingService")
 @ApplicationScoped
