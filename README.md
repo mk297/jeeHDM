@@ -23,8 +23,7 @@ JAX-RS
   
 - Um neue Kinobesucher anlegen zu können, soll die "POST"-Methode createPerson() realisiert werden. 
   Diese soll auf den relativen Pfad /booking/createPerson gemapped werden.
--sdsd
---Als Parameter soll der Vorname "preName" und Nachname "surName" (String) als Form-Parameter übergeben werden. 
+- Als Parameter soll der Vorname "preName" und Nachname "surName" (String) als Form-Parameter übergeben werden. 
 - Als Response soll eine Erfolgsmeldung der gerade angelegten Person an den Client zurückgegeben werden. 
 	
 Übung 2
