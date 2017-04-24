@@ -16,9 +16,24 @@ Instructions for installing and using the project
 =============
 
 
-Übung 2 - JAX-RS
-================
+JAX-RS
+===
 
+  Übung 1
+- Um neue Kinobesucher anlegen zu können, soll die "POST"-Methode createPerson() realisiert werden. 
+  Diese soll auf den relativen Pfad /booking/createPerson gemapped werden.
+- Als Parameter soll der Vorname "preName" und Nachname "surName" (String) als Form-Parameter übergeben werden. 
+- Als Response soll eine Erfolgsmeldung der gerade angelegten Person an den Client zurückgegeben werden. 
+	
+	
+	
+  Übung 2
+- Um einen Platz zu reservieren, soll die "POST"-Methode bookSeat() realisiert werden. 
+  Diese soll auf den root gemapped werden.
+- Als Parameter soll die Sitznummer "seat" und "row" (Integer) als Form-Parameter übergeben werden.
+- Des Weiteren soll eine "personID" (Integer) benötigt, damit Tickets einer Person zugeordnet werden kann.
+- Als Response soll eine Erfolgsmeldung des gerade reservierten Tickets an den Client zurückgegeben werden.  
+	
 
 JPA
 ===
